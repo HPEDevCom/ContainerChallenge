@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grommet-denischoukroun
+spec:
+  selector:
+    matchLabels:
+      run: grommet-denischoukroun
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: grommet-denischoukroun
+    spec:
+      containers:
+        - name: grommet-app-denischoukroun
+          image: didierlalli/myfirstgrommetapp
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          stdin: true
+          tty: true 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grommet-service-denischoukroun
+spec:
+  selector:
+    run: grommet-denischoukroun
+  ports:
+  - name: http-grommetapp
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: NodePort
